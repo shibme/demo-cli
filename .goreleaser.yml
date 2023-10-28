@@ -1,0 +1,31 @@
+project_name: demo
+builds:
+  - env:
+      - CGO_ENABLED=0
+    ldflags: "-X github.com/shibme/demo-cli/commands.ProjectName={{.ProjectName}} -X github.com/shibme/demo-cli/commands.Version={{.Version}}"
+archives:
+  - format: zip
+    name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ incpatch .Version }}-dev"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+brews:
+  - name: demo
+    homepage: "https://github.com/shibme/demo-cli"
+    commit_author:
+      name: shibme
+      email: git@shib.me
+    repository:
+      owner: shibme
+      name: homebrew-lab
+      branch: main
+      git:
+        url: 'git@github.com:shibme/homebrew-lab.git'
+        private_key: '{{ .Env.HOMEBREW_LAB_SSH_KEY }}'
