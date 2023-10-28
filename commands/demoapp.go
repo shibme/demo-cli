@@ -10,7 +10,7 @@ func DemoAppCommand() *cobra.Command {
 	}
 	demoAppCmd = &cobra.Command{
 		Use:   "demo",
-		Short: "Demo CLI is an app for demo purposes",
+		Short: "Demo CLI is an CLI tool built for demo purposes",
 		Run: func(cmd *cobra.Command, args []string) {
 			version, _ := cmd.Flags().GetBool(versionFlag.name)
 			if version {
