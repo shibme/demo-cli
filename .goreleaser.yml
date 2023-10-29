@@ -6,10 +6,12 @@ builds:
     goarch:
       - amd64
       - arm64
+    goos:
+      - darwin
+      - linux
+      - windows
 archives:
   - format: zip
-checksum:
-  name_template: 'checksums.txt'
 snapshot:
   name_template: "{{ incpatch .Version }}-dev"
 changelog:
