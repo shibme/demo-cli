@@ -41,23 +41,3 @@ brews:
       git:
         url: 'git@github.com:shibme/homebrew-lab.git'
         private_key: '{{ .Env.HOMEBREW_LAB_SSH_KEY }}'
-dockers:
-- image_templates:
-  - 'shibme/demo-cli:{{ .Tag }}-amd64'
-  use: buildx
-  build_flag_templates:
-  - "--pull"
-  - "--platform=linux/amd64"
-- image_templates:
-  - 'shibme/demo-cli:{{ .Tag }}-arm64'
-  use: buildx
-  build_flag_templates:
-  - "--pull"
-  - "--platform=linux/arm64"
-  goarch: arm64
-
-docker_manifests:
-- name_template: 'shibme/demo-cli:{{ .Tag }}'
-  image_templates:
-  - 'shibme/demo-cli:{{ .Tag }}-amd64'
-  - 'shibme/demo-cli:{{ .Tag }}-arm64'

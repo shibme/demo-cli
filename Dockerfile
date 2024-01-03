@@ -1,3 +1,3 @@
 FROM scratch
-COPY demo /
-ENTRYPOINT ["/demo"]
+ARG TARGETARCH
+COPY ./dist/demo_linux_${TARGETARCH}*/ /

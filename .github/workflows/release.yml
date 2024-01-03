@@ -34,3 +34,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HOMEBREW_LAB_SSH_KEY: ${{ secrets.HOMEBREW_LAB_SSH_KEY }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          platforms: linux/amd64,linux/arm64
+          context: .
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}:${{ github.ref_name }}
