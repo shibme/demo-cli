@@ -9,7 +9,7 @@ func DemoAppCommand() *cobra.Command {
 		return demoAppCmd
 	}
 	demoAppCmd = &cobra.Command{
-		Use:   "demo",
+		Use:   "demo-cli",
 		Short: "Demo CLI is an CLI tool built for demo purposes",
 		Run: func(cmd *cobra.Command, args []string) {
 			version, _ := cmd.Flags().GetBool(versionFlag.name)
