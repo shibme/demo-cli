@@ -40,11 +40,7 @@ brews:
   - name: demo-cli
     install: |
       bin.install "{{ .Binary }}"
-      generate_completions_from_executable(
-        "{{ .Binary }}",
-        "completion",
-        shells: [:bash, :zsh, :fish, :powershell],
-      )
+      generate_completions_from_executable(bin/"{{ .Binary }}","completion")
     homepage: "https://github.com/shibme/demo-cli"
     repository:
       owner: shibme
