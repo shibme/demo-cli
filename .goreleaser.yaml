@@ -1,0 +1,55 @@
+version: 2
+project_name: demo-cli
+env:
+  - GO111MODULE=on
+builds:
+
+  - id: demo-cli
+    binary: demo-cli
+    main: ./main.go
+    goarch:
+      - arm64
+    goos:
+      - darwin
+      - linux
+    env:
+      - CGO_ENABLED=0
+    flags: "-mod=readonly"
+    ldflags:
+      - -X dev.shib.me/demo-cli/commands.ProjectName={{.ProjectName}}
+      - -X dev.shib.me/demo-cli/commands.Version={{.Version}}
+
+archives:
+  - name_template: "{{ .Binary }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    formats: [ 'zip' ]
+
+checksum:
+  name_template: "{{ .ProjectName }}_{{ .Version }}_checksums.txt"
+
+snapshot:
+  version_template: "{{ incpatch .Version }}-dev"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+  
+brews:
+  - name: demo-cli
+    install: |
+      bin.install "{{ .Binary }}"
+      generate_completions_from_executable(
+        "{{ .Binary }}",
+        "completion",
+        shells: [:bash, :zsh, :fish, :powershell],
+      )
+    homepage: "https://github.com/shibme/demo-cli"
+    repository:
+      owner: shibme
+      name: homebrew-dev
+      branch: main
+      git:
+        url: 'git@github.com:shibme/homebrew-dev.git'
+        private_key: '{{ .Env.HOMEBREW_DEV_SSH_KEY }}'
